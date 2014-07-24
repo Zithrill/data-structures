@@ -1,9 +1,38 @@
 var makeQueue = function(){
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  var someInstance = {};
+
+  someInstance.storage = {};
+  someInstance.stackSize = 0;
+  someInstance.frontOfQueue = 0;
+  someInstance.backOfQueue = 0;
+
+  someInstance.enqueue = queueMethods.enqueue;
+  someInstance.dequeue = queueMethods.dequeue;
+  someInstance.size = queueMethods.size;
+
+  return someInstance;
 };
 
 var queueMethods = {};
 
+queueMethods.enqueue = function(value){
+  this.storage[this.backOfQueue] = value;
+  this.backOfQueue++;
+  this.stackSize++;
+};
+
+queueMethods.dequeue = function(){
+  if(this.stackSize > 0){
+    var result = this.storage[this.frontOfQueue];
+    delete this.storage[this.frontOfQueue];
+    this.stackSize--;
+    this.frontOfQueue++;
+    return result;
+  }
+};
+
+queueMethods.size = function(){
+  return this.stackSize;
+};
 
 
