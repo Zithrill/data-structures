@@ -5,9 +5,15 @@ describe('tree', function() {
     tree = makeTree();
   });
 
-  it('should have methods named "addChild" and "contains", and a property named "value"', function() {
+  it('should have methods named "addChild" ', function() {
     expect(tree.addChild).to.be.a("function");
+  });
+
+  it('should have methods named "contains" ', function() {
     expect(tree.contains).to.be.a("function");
+  });
+
+  it('should have methods named "value"', function() {
     expect(tree.hasOwnProperty("value")).to.equal(true);
   });
 

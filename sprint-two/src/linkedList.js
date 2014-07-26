@@ -6,14 +6,13 @@ var makeLinkedList = function(){
 
   list.addToTail = function(value){
     var newNode = makeNode(value);
-    this['node' + list.size] = newNode;
-    if (this.head === null) {
+    if(this.head === null) {
       this.head = newNode;
+    } else {
+      var oldNode = this.tail;
+      oldNode.next = newNode;
     }
-    else {
-      this['node' + (list.size - 1)].next = this['node' + list.size];
-    }
-    this.tail = this['node' + list.size++];
+    this.tail = newNode;
   };
 
   list.removeHead = function(){
