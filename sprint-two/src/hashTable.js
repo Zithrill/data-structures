@@ -3,34 +3,39 @@ var HashTable = function(){
   this._storage = makeLimitedArray(this._limit);
 };
 
-HashTable.prototype.insert = function(k, v){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  var storageNode = [k,v];
-  if(Array.isArray(this._storage.get(i))){
-    this._storage.get(i).push(storageNode);
+HashTable.prototype.insert = function(key, value){
+  var hashValue = getIndexBelowMaxForKey(key, this._limit);
+  var storageNode = [key,value];
+  var currentItem = this._storage.get(hashValue);
+  if(Array.isArray(currentItem)){
+    currentItem.push(storageNode);
   }else {
-    this._storage.set(i, [storageNode]);
+    this._storage.set(hashValue, [storageNode]);
   }
 };
-//this.storage.get(i) => [[key,val],["food", pig],["drink", water]];
-HashTable.prototype.retrieve = function(k){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  if(Array.isArray(this._storage.get(i))){
-    for(var j = 0; j < this._storage.get(i).length; j++ ){
-      if(this._storage.get(i)[j][0] === k){
-        return this._storage.get(i)[j][1];
+
+HashTable.prototype.retrieve = function(key){
+  var hashValue = getIndexBelowMaxForKey(key, this._limit);
+  var currentItem = this._storage.get(hashValue);
+  var isAnArray = Array.isArray(currentItem);
+  if(isAnArray){
+    for(var bucket = 0; bucket < currentItem.length; bucket++ ){
+      if(currentItem[bucket][0] === key){
+        return currentItem[bucket][1];
       }
     }
   }
   return null;
 };
 
-HashTable.prototype.remove = function(k){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  if(Array.isArray(this._storage.get(i))) {
-    for(var j = 0; j < this._storage.get(i).length; j++) {
-      if(this._storage.get(i)[j][0] === k) {
-        return this._storage.get(i).splice(j, 1);
+HashTable.prototype.remove = function(key){
+  var hashValue = getIndexBelowMaxForKey(key, this._limit);
+  var currentItem = this._storage.get(hashValue);
+  var isAnArray = Array.isArray(currentItem);
+  if(isAnArray){
+    for(var bucket = 0; bucket < currentItem.length; bucket++) {
+      if(currentItem[bucket][0] === key) {
+        return currentItem.splice(bucket, 1);
       }
     }
   }
