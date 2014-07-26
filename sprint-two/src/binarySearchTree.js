@@ -9,11 +9,14 @@ var makeBinarySearchTree = function(valueIn){
 var nodeMethods = {};
 
 nodeMethods.insert = function(val){
-  //Somehow check to see if values exist
+  // Determines where to send the value
   if(val > this.value) {
+    // Does value exists
     if(this.right) {
+      // Recursively call insert on right object
       this.right.insert(val);
     } else {
+      // Create a new node and store reference in right object
       this.right = makeBinarySearchTree(val);
     }
   } else {
@@ -27,10 +30,12 @@ nodeMethods.insert = function(val){
 
 nodeMethods.contains = function(val){
   var result = false;
+
   if(val === this.value) {
     return true;
   }
 
+  // Checks to see if value should search left or right tree
   if(val > this.value) {
     result = this.right ? this.right.contains(val) : false;
   } else {
@@ -41,8 +46,11 @@ nodeMethods.contains = function(val){
 };
 
 nodeMethods.depthFirstLog = function(callback){
+  // Invokes callback on the value on this object
   callback(this.value);
 
+  // Recursively call the the callback on either left or right object
+  // depending on low/high value
   if(this.left){
     this.left.depthFirstLog(callback);
   }
@@ -56,15 +64,3 @@ nodeMethods.depthFirstLog = function(callback){
 /*
  * Complexity: What is the time complexity of the above functions?
 //  */
-// var myNode = makeBinarySearchTree(5);
-// // =>
-// node = {
-//   lower: {}
-//   higher: {}
-//   val: val
-//   metods:
-// }
-// myNode.insert(3);
-// myNode.insert(6);
-// myNode.insert(4);
-// myNode.contains(4);

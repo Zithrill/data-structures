@@ -12,7 +12,7 @@ Graph.prototype.addNode = function(newNode, toNode){
   // place link to new node into an array to refrence later
   node.edges = {};
   this.master[newNode] = node;
-  var masterKeys =Object.keys(this.master);
+  var masterKeys = Object.keys(this.master);
   // if this is the first node created its ok to be on its own
   if(masterKeys.length === 1) {
     this.edges = {};
@@ -28,7 +28,6 @@ Graph.prototype.addNode = function(newNode, toNode){
   }
   //if this is node #3+ and toNode dose NOT exist throw out this node
   else{
-    delete node;
     delete this.master[newNode];
   }
 };
@@ -54,12 +53,10 @@ Graph.prototype.removeNode = function(node){
         delete nodeToDelete.edges[i];
       }
     }
+    //Delete node from memory
     delete this.edges[node];
     delete this.master[node];
   }
-
-
-  //Delete node from memory
 };
 
 Graph.prototype.getEdge = function(fromNode, toNode){
